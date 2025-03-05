@@ -18,6 +18,7 @@ export class RecipeController {
                 res.status(401).json({ error: 'User not authenticated' });
                 return;
             }
+            console.log('ingredients:', ingredients);
 
             const recipes = await this.recipeService.searchRecipes(ingredients, userId);
             res.json(recipes);

@@ -12,7 +12,7 @@ export class RecipeService {
 
     async searchRecipes(ingredients: string, userId: number): Promise<Recipe[]> {
         try {
-            const response = await axios.get<Recipe[]>(
+            const response = await axios.get(
                 'https://api.spoonacular.com/recipes/findByIngredients',
                 {
                     params: {
@@ -30,7 +30,7 @@ export class RecipeService {
                 throw new Error('Invalid response from Spoonacular API');
             }
 
-            return response.data.map(recipe => ({
+            return response.data.map((recipe: any) => ({
                 id: recipe.id,
                 title: recipe.title,
                 image: recipe.image,

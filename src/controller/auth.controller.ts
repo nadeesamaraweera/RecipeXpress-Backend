@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { AuthService } from '../service/auth.service';
+import jwt from "jsonwebtoken";
 
 export class AuthController {
     constructor(private authService: AuthService) {}
@@ -8,8 +9,11 @@ export class AuthController {
         try {
             const { name, email, password } = req.body;
             const user = await this.authService.registerUser(name, email, password);
-            res.status(201).json({ id: user.id, name: user.name, email: user.email });
-        } catch (error) {
+            // Generate JWT token
+            const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, { expiresIn: '1h' });
+
+            res.status(201).json({ id: user.id, name: user.name, email: user.email, token });        }
+        catch (error) {
             res.status(400).json({ error: 'Registration failed' });
         }
     }
