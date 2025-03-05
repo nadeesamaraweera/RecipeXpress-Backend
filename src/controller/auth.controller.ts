@@ -21,8 +21,16 @@ export class AuthController {
     async login(req: Request, res: Response) {
         try {
             const { email, password } = req.body;
-            const token = await this.authService.loginUser(email, password);
-            res.json({ token });
+            // Get both user and token from the service
+            const { user, token } = await this.authService.loginUser(email, password);
+
+            // Return user details with token
+            res.json({
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                token
+            });
         } catch (error) {
             res.status(401).json({ error: 'Authentication failed' });
         }
