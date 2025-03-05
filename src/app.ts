@@ -2,12 +2,17 @@ import express from 'express';
 import authRouter from './routes/auth.router';
 import recipeRouter from './routes/recipe.router';
 import morgan from 'morgan';
+import cors from 'cors';
+
+// Add this early in middleware section
 
 const app = express();
 
 // Middleware
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(cors());
+
 
 // Routes
 app.use('/api/auth', authRouter);
