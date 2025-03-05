@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { Recipe, Ingredient } from '../model/recipe.model';
 import { SearchHistoryRepository } from '../repository/search-history.repository';
-import { SearchHistory } from '@prisma/client';
+// @ts-ignore
+import {SearchHistory} from '@prisma/client';
 
 
 export class RecipeService {

@@ -1,4 +1,5 @@
 import prisma from '../config/prisma';
+// @ts-ignore
 import { SearchHistory } from '@prisma/client';
 
 export class SearchHistoryRepository {
