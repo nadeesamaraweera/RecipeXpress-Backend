@@ -12,5 +12,6 @@ const recipeService = new RecipeService(
 const recipeController = new RecipeController(recipeService);
 
 router.get('/', authenticate, recipeController.searchRecipes.bind(recipeController));
+router.get('/history', authenticate, recipeController.getSearchHistory.bind(recipeController));
 
 export default router;

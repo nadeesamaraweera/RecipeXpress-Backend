@@ -10,4 +10,9 @@ export class SearchHistoryRepository {
             }
         });
     }
+    async getSearchHistoryByUserId(userId: number): Promise<SearchHistory[]> {
+        return prisma.searchHistory.findMany({
+            where: { userId }
+        });
+    }
 }

@@ -25,4 +25,20 @@ export class RecipeController {
             next(error);
         }
     }
+    async getSearchHistory(req: Request, res: Response, next: NextFunction): Promise<void> {
+        try {
+            const userId = req.user?.id;
+
+            if (!userId) {
+                res.status(401).json({ error: 'User not authenticated' });
+                return;
+            }
+
+            const searchHistory = await this.recipeService.getSearchHistory(userId);
+            res.json(searchHistory);
+        } catch (error) {
+            next(error);
+        }
+
+    }
 }

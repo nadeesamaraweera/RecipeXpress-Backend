@@ -20,7 +20,8 @@ app.use('/api/recipes', recipeRouter);
 
 // Error handling middleware
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
-    console.error(err.stack);
+    console.error('Error:', err.message);
+    console.error('Stack:', err.stack);
     res.status(500).json({ error: 'Internal server error' });
 });
 
