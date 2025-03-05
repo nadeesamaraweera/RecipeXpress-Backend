@@ -9,16 +9,16 @@ declare module 'express' {
     }
 }
 
-export const authenticate = (req: Request, res: Response, next: NextFunction) => {
+export const authenticate = (req: Request, res: Response, next: NextFunction): void => {
     const token = req.header('Authorization')?.replace('Bearer ', '');
 
     if (!token) {
-        return res.status(401).json({ error: 'Authentication required' });
+        res.status(401).json({ error: 'Authentication required' });
+        return;
     }
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { userId: number };
-        req.user = { id: decoded.userId };
         next();
     } catch (error) {
         res.status(401).json({ error: 'Invalid token' });

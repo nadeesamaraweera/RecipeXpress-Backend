@@ -6,9 +6,9 @@ import { User } from '../model/user.model';
 export class AuthService {
     constructor(private userRepository: UserRepository) {}
 
-    async registerUser(email: string, password: string): Promise<User> {
+    async registerUser(name: string, email: string, password: string): Promise<User> {
         const hashedPassword = await bcrypt.hash(password, 10);
-        return this.userRepository.createUser({ email, password: hashedPassword });
+        return this.userRepository.createUser({ name, email, password: hashedPassword });
     }
 
     async loginUser(email: string, password: string): Promise<string> {
@@ -23,5 +23,8 @@ export class AuthService {
             process.env.JWT_SECRET!,
             { expiresIn: '1h' }
         );
+    }
+    async getUsers(): Promise<User[]> {
+        return this.userRepository.getUsers();
     }
 }
